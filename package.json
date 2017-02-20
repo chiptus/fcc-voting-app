@@ -1,7 +1,7 @@
 {
-  "name": "clementinejs-fcc",
+  "name": "voty",
   "version": "1.0.1",
-  "description": "The elegant and lightweight boilerplate for full stack JavaScript.",
+  "description": "voting app",
   "main": "server.js",
   "repository": {
     "type": "git",
