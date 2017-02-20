@@ -1,4 +1,5 @@
 'use strict';
+const pollsRoutes = require('./polls');
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
@@ -6,6 +7,7 @@ var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 module.exports = function (app, passport) {
 
 	function isLoggedIn (req, res, next) {
+		return next();
 		if (req.isAuthenticated()) {
 			return next();
 		} else {
@@ -36,10 +38,10 @@ module.exports = function (app, passport) {
 			res.sendFile(path + '/public/profile.html');
 		});
 
-	app.route('/api/:id')
-		.get(isLoggedIn, function (req, res) {
-			res.json(req.user.github);
-		});
+	// app.route('/api/:id')
+	// 	.get(isLoggedIn, function (req, res) {
+	// 		res.json(req.user.github);
+	// 	});
 
 	app.route('/auth/github')
 		.get(passport.authenticate('github'));
@@ -50,8 +52,6 @@ module.exports = function (app, passport) {
 			failureRedirect: '/login'
 		}));
 
-	app.route('/api/:id/clicks')
-		.get(isLoggedIn, clickHandler.getClicks)
-		.post(isLoggedIn, clickHandler.addClick)
-		.delete(isLoggedIn, clickHandler.resetClicks);
+		pollsRoutes(app);
+
 };
