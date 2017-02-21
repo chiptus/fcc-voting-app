@@ -9,9 +9,12 @@ var Poll = new Schema({
   name: String,
   options: [{
     name: String,
-    value: Number,
+    value: {
+      type: Number,
+      default: 0,
+    }
   }],
-  created_by: Schema.ObjectId, //created_by user id
+  created_by_user_id: Schema.ObjectId, //created_by user id
 });
 
 module.exports = mongoose.model('Poll', Poll);
