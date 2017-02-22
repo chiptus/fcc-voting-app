@@ -7,7 +7,6 @@ import AppBar from 'material-ui/AppBar';
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
 
-import CoursesPage from './comps/courses/page';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -32,27 +31,29 @@ class App extends Component {
     this.setState({ openDrawer: !this.state.openDrawer });
   }
 
+  /*
+    <Drawer open={this.state.openDrawer} docked={false} onRequestChange={() => console.log('requres')}>
+        <MenuItem secondaryText={'X'} onTouchTap={this.toggleDrawer}></MenuItem>
+        <NavLink to="/courses" activeClassName="active"><MenuItem  onTouchTap={this.toggleDrawer}>מנות</MenuItem></NavLink>
+        <NavLink to="/menus" activeClassName="active"><MenuItem onTouchTap={this.toggleDrawer}>תפריטים</MenuItem></NavLink>
+        <NavLink to="/events" activeClassName="active"><MenuItem onTouchTap={this.toggleDrawer}>אירועים</MenuItem></NavLink>
+        <NavLink to="/ingredients" activeClassName="active"><MenuItem onTouchTap={this.toggleDrawer}>רכיבים</MenuItem></NavLink>
+  </Drawer>
+  */
+
   render() {
     return (
       <BrowserRouter >
         <MuiThemeProvider muiTheme={theme}>
           <div>
-            <Drawer open={this.state.openDrawer} docked={false} onRequestChange={() => console.log('requres')}>
-              <MenuItem secondaryText={'X'} onTouchTap={this.toggleDrawer}></MenuItem>
-              <NavLink to="/courses" activeClassName="active"><MenuItem  onTouchTap={this.toggleDrawer}>מנות</MenuItem></NavLink>
-              <NavLink to="/menus" activeClassName="active"><MenuItem onTouchTap={this.toggleDrawer}>תפריטים</MenuItem></NavLink>
-              <NavLink to="/events" activeClassName="active"><MenuItem onTouchTap={this.toggleDrawer}>אירועים</MenuItem></NavLink>
-              <NavLink to="/ingredients" activeClassName="active"><MenuItem onTouchTap={this.toggleDrawer}>רכיבים</MenuItem></NavLink>
-            </Drawer>
+
             <div className="container">
-              <AppBar title="מחשבון כמויות" onLeftIconButtonTouchTap={this.toggleDrawer}>
+              <AppBar title="Voty" /*onLeftIconButtonTouchTap={this.toggleDrawer}*/>
 
               </AppBar>
               <div className="content">
-                <Route path="/courses" render={() => <CoursesPage />} />
-                <Route path="/menus" render={() => <div>menu</div>} />
-                <Route path="/events" render={() => <div>events</div>} />
-                <Route path="/ingredients" render={() => <div>ingredients</div>} />
+                <Route path="/login" render={() => <div>not logged in</div>} />
+                
               </div>
             </div>
           </div>
