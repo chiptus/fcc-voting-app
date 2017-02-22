@@ -19,7 +19,7 @@ module.exports = function (app, passport) {
 
 	app.route('/')
 		.get(isLoggedIn, function (req, res) {
-			res.sendFile(path + '/public/react-site/index.html');
+			res.sendFile(path + '/public/react-site/build/index.html');
 		});
 
 	// app.route('/login')
