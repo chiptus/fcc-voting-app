@@ -1,8 +1,9 @@
 const PollCtrl = require('../controllers/poll.controller');
+const { isLoggedIn } = require('./utils');
 
 module.exports = (app) => {
 
-	app.post('/api/create-poll', ({body}, res) => {
+	app.post('/api/create-poll', isLoggedIn, ({body}, res) => {
 		if (!body.name) {
 			return res.json({ error: 'name isn\'t supplied' });
 		}
