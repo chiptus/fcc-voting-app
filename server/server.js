@@ -17,10 +17,6 @@ mongoose.Promise = global.Promise;
 
 app.use(bodyParser.json());
 
-app.use('/controllers', express.static(process.cwd() + '/controllers'));
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/common', express.static(process.cwd() + '/common'));
-
 app.use(session({
 	secret: 'secretClementine',
 	resave: false,
