@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch, /*NavLink */ } from 'react-router-dom';
 
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 
-import { Header, Footer } from './components/layout';
-
-import injectTapEventPlugin from 'react-tap-event-plugin';
-
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
-
 import theme from './theme';
+
+import './App.css';
+
+import { Header, Footer } from './components/layout';
 
 import LoginPage from './auth/login-page/login-page';
 
 import { HomePage, MyPollsPage, NewPollPage, PollPage } from './containers';
 
-import './App.css';
 
 class App extends Component {
   render() {
