@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, /*NavLink */ } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, /*NavLink */ } from 'react-router-dom';
 
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
@@ -15,23 +15,29 @@ injectTapEventPlugin();
 import theme from './theme';
 
 import LoginPage from './auth/login-page/login-page';
+
+import { HomePage, MyPollsPage, NewPollPage, PollPage } from './containers';
+
 import './App.css';
 
 class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
+
     return (
       <BrowserRouter >
         <MuiThemeProvider muiTheme={theme}>
 
-          <div className="container">
+          <div className="container vbox viewport">
             <Header />
             <div className="content">
-              <Route path="/login" component={LoginPage} />
-              <Route path="/test" component={"div"} />
+              <Switch>
+                <Route path="/my-polls" component={MyPollsPage} />
+                <Route path="/login" component={LoginPage} />
+                <Route path="/new-poll" component={NewPollPage} />
+                <Route path="/poll/:id" render={({match: {params: {id}}, push}) => <PollPage {...{ id, push }} />}>
+                </Route>
+                <Route path="/" component={HomePage} />
+              </Switch>
             </div>
             <Footer />
           </div>
