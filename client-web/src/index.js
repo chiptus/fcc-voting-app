@@ -9,7 +9,16 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
+
+import {createStore} from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers';
+
+const store = createStore(reducer);
+
 ReactDOM.render(
-  <App />,
+  <Provider store={store} >
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
