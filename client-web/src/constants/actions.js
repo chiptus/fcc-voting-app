@@ -1,0 +1,8 @@
+export const REQUEST_POLLS = 'REQUEST_POLLS';
+export const RECEIVED_POLLS = 'RECEIVED_POLLS';
+
+export const CREATE_POLL_REQUEST = 'CREATE_POLL_REQUEST';
+export const ADD_POLL = 'ADD_POLL';
+
+export const REQUEST_VOTE = 'REQUEST_VOTE';
+export const RESPONSE_VOTE = 'RESPONSE_VOTE';
