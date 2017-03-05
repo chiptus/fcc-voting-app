@@ -11,7 +11,8 @@ class PollPage extends Component {
 }
 
 PollPage.propTypes = {
-
+  poll: PropTypes.object,
+  savePoll: PropTypes.func,
 };
 
 export default PollPage;
