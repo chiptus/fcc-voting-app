@@ -16,7 +16,6 @@ import { HomePage, MyPollsPage, NewPollPage, PollPage } from './containers';
 
 class App extends Component {
   render() {
-
     return (
       <BrowserRouter >
         <MuiThemeProvider muiTheme={theme}>
@@ -25,12 +24,12 @@ class App extends Component {
             <Header />
             <div className="content">
               <Switch>
-                <Route path="/my-polls" component={MyPollsPage} />
+                <Route path="/my-polls" render={({push}) => <MyPollsPage openPoll={createOpenPollFunction(push)} />} />
                 <Route path="/login" component={LoginPage} />
                 <Route path="/new-poll" component={NewPollPage} />
                 <Route path="/poll/:id" render={({match: {params: {id}}, push}) => <PollPage {...{ id, push }} />}>
                 </Route>
-                <Route path="/" component={HomePage} />
+                <Route path="/" render={({push}) => <HomePage openPoll={createOpenPollFunction(push)}/>} />
               </Switch>
             </div>
             <Footer />
@@ -43,3 +42,8 @@ class App extends Component {
 }
 
 export default App;
+
+
+function createOpenPollFunction(push) {
+  return id => push(`/poll/${id}`)
+}

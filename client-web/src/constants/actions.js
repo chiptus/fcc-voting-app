@@ -6,3 +6,6 @@ export const ADD_POLL = 'ADD_POLL';
 
 export const REQUEST_VOTE = 'REQUEST_VOTE';
 export const RESPONSE_VOTE = 'RESPONSE_VOTE';
+
+export const REQUEST_CREATE_OPTION = 'REQUEST_CREATE_OPTION';
+export const ADD_OPTION = 'ADD_OPTION';
