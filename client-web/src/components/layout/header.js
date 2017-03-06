@@ -1,23 +1,24 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { AppBar, FlatButton } from 'material-ui';
+import { NavLink } from 'react-router-dom';
 
-const SignedIn =
+const SignedIn = ({ goHome, goMyPolls, goNewPoll, signOut }) =>
   (<div>
-    <FlatButton label="Home" />
-    <FlatButton label="My Polls" />
-    <FlatButton label="New Poll" />
-    <FlatButton label="Sign Out" />
+    <FlatButton label={<NavLink to="/">Home</NavLink>} />
+    <FlatButton label={<NavLink to="/my-polls">My Polls</NavLink>} />
+    <FlatButton label={<NavLink to="/new-poll">New Poll</NavLink>} />
+    <FlatButton label={<NavLink to="/sign-out">Sign Out</NavLink>} />
   </div>);
 
-const SignedOut =
+const SignedOut = ({ goHome, signIn }) =>
   (
     <div>
-      <FlatButton label="Home" />
-      <FlatButton label="Sign In" />
+      <FlatButton label={<NavLink to="/">Home</NavLink>} />
+      <FlatButton label={<NavLink to="/sign-in">Sign In</NavLink>} />
     </div>
   );
 
-const Header = ({signedIn = true}) => {
+const Header = ({ signedIn = true }) => {
 
 
   return (
@@ -25,12 +26,16 @@ const Header = ({signedIn = true}) => {
       showMenuIconButton={false}
       className="header"
       iconElementRight={
-        signedIn ? SignedIn : SignedOut
+        signedIn ? <SignedIn /> : <SignedOut />
       }
     >
 
     </AppBar>
   );
 };
+
+Header.propTypes = {
+  signedIn: PropTypes.bool
+}
 
 export default Header;
