@@ -19,7 +19,7 @@ class MyPollPage extends Component {
 
 MyPollPage.propTypes = {
   polls: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   })),
   openPoll: PropTypes.func,

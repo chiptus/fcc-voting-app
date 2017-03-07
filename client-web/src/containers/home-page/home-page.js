@@ -18,7 +18,7 @@ class HomePage extends Component {
 
 HomePage.propTypes = {
   polls: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
   })),
   openPoll: PropTypes.func,
