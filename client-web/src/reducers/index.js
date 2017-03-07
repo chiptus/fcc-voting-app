@@ -1,14 +1,14 @@
+import {combineReducers} from 'redux';
+
 import auth from './auth';
 import entities from './entities';
 import polls from './polls';
 
-export default function rootReducer(state, action) {
+const rootReducer = combineReducers({auth, entities, polls});
+
+export default function rootReducerWrapper(state, action) {
   if (action.error) {
     console.error(action.payload);
   }
-  return {
-    auth: auth(state, action),
-    entities: entities(state, action),
-    polls: polls(state, action),
-  }
+  return rootReducer(state, action);
 }
