@@ -3,12 +3,16 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-const PollOption = require('./poll-option');
 
 var Poll = new Schema({
   name: String,
   options: [{
-    name: String,
+    name: {
+      type: String,
+      unique: true,
+      required: true, 
+      dropDups: true,
+    },
     value: {
       type: Number,
       default: 0,
