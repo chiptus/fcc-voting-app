@@ -13,11 +13,11 @@ const defaultState = {};
 export default function entitiesPollsReducer(state = defaultState, { type, payload, error, meta }) {
   switch (type) {
     case ACTIONS.RECEIVED_POLLS:
-      return convertArrayToObject(payload);
+      return convertArrayToObject(payload.items);
     case ACTIONS.ADD_POLL:
       return {
         ...state,
-        [payload.id]: payload,
+        [payload.poll._id]: payload.poll,
       };
     case ACTIONS.RESPONSE_VOTE:
       return {
