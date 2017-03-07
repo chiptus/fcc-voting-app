@@ -26,7 +26,7 @@ class App extends Component {
               <Switch>
                 <Route path="/my-polls" render={({push}) => <MyPollsPage openPoll={createOpenPollFunction(push)} />} />
                 <Route path="/login" component={LoginPage} />
-                <Route path="/new-poll" component={NewPollPage} />
+                <Route path="/new-poll" render={({push}) => <NewPollPage goToList={() => push('/')}/>} />
                 <Route path="/poll/:id" render={({match: {params: {id}}, push}) => <PollPage {...{ id, push }} />}>
                 </Route>
                 <Route path="/" render={({push}) => <HomePage openPoll={createOpenPollFunction(push)}/>} />
