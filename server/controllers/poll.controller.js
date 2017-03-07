@@ -38,7 +38,7 @@ function voteForPoll(id, optionId) {
 
 //todo add pagination
 function getListOfPolls() {
-  return Poll.find({}, { name: 1, _id: 1, created_by_user_id: 1 })
+  return Poll.find({}, { __v: 0 })
     .exec();
 }
 
