@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 
-import {voteForPoll} from '../../actions/poll';
+import voteForPoll from '../../actions/vote-poll';
 
 import PollPage from '../../components/poll-page';
 

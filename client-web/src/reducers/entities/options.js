@@ -24,6 +24,14 @@ export default function optionsReducer(state = defaultState, { type, payload, er
       }
       
     case ACTIONS.RESPONSE_VOTE:  
+      //add vote
+      return {
+        ...state,
+        [payload.optionId]: {
+          ...state[payload.optionId],
+          value: state[payload.optionId].value + 1, 
+        },
+      }
     case ACTIONS.REQUEST_CREATE_OPTION:
     case ACTIONS.CREATE_POLL_REQUEST:
     case ACTIONS.REQUEST_POLLS:
