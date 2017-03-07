@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react';
 
-import { Redirect } from 'react-router-dom';
 import { TextField, FlatButton } from 'material-ui'
 
 import {connect} from 'react-redux';
@@ -31,7 +30,7 @@ class NewPollPage extends Component {
       return;
     }
     this.props.createPoll({ name, options: options.split(/\n/) });
-    return <Redirect to="/" />
+    return this.props.goToList();
   }
 
   render() {
@@ -66,12 +65,13 @@ class NewPollPage extends Component {
 
 NewPollPage.propTypes = {
   createPoll: PropTypes.func.isRequired,
+  goToList: PropTypes.func.isRequired,
 };
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state, ownProps) => ({
 
-})
+});
 
 const mapDispatchToProps = (dispatch) => ({
   createPoll: (poll) => dispatch(createPoll(poll)),
