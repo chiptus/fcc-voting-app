@@ -1,15 +1,12 @@
 import React, { Component, PropTypes } from 'react';
-
+import {connect} from 'react-redux';
 
 import {PollsList} from '../../components/';
 
 
 class HomePage extends Component {
   render() {
-    const polls = [
-      {id: "0", name: "chaman"},
-      {id: "1", name:"wlla"}
-    ];
+    const {polls} = this.props;
 
     return (
       <div>
@@ -27,4 +24,12 @@ HomePage.propTypes = {
   openPoll: PropTypes.func,
 };
 
-export default HomePage;
+const mapStateToProps = (state,ownProps) => ({
+  polls: state.polls.items.map(pId => state.entities.polls[pId]),
+});
+
+const mapDispatchToProps = (dispatch,ownProps) => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
