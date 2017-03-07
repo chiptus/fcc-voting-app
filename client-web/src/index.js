@@ -10,11 +10,12 @@ import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin();
 
 
-import {createStore} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import { Provider } from 'react-redux';
-import reducer from './reducers';
+import thunk from 'redux-thunk';
 
-const store = createStore(reducer);
+import reducer from './reducers';
+const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Provider store={store} >
