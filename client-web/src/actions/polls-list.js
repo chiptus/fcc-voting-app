@@ -1,14 +1,15 @@
 import axios from 'axios';
 
-import {SERVER_URL} from '../config';
+import { SERVER_URL } from '../config';
 import * as ACTIONS from '../constants/actions';
 
 export function getPolls() {
   return dispatch => {
     dispatch(requestGetList());
     return axios.get(`${SERVER_URL}/api/polls`)
-      .then(response => dispatch(receivedList(response.data)))
-      .catch(error => dispatch(requestGetListFailed(error)))
+      .then(
+      response => dispatch(receivedList(response.data)),
+      error => dispatch(requestGetListFailed(error)))
   }
 }
 
