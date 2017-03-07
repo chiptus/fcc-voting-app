@@ -1,24 +1,36 @@
 import React, { Component, PropTypes } from 'react';
+import {connect} from 'react-redux';
+
+import {PollsList} from '../../components/';
+
 
 class MyPollPage extends Component {
   render() {
+    const {polls} = this.props;
+
     return (
       <div>
-        MyPollPage
+        Need to change to load only the current user's polls
+        <PollsList polls={polls} openPoll={this.props.openPoll}/>
       </div>
     );
   }
 }
 
 MyPollPage.propTypes = {
-  poll: PropTypes.shape({
+  polls: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    options: PropTypes.object,
-  }),
-  deletePoll: PropTypes.func,
-  editPoll: PropTypes.func,
-  voteForPoll: PropTypes.func,
+  })),
+  openPoll: PropTypes.func,
 };
 
-export default MyPollPage;
+const mapStateToProps = (state,ownProps) => ({
+  polls: state.polls.items.map(pId => state.entities.polls[pId]),
+});
+
+const mapDispatchToProps = (dispatch,ownProps) => ({
+
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyPollPage);
