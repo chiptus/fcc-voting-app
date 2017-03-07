@@ -1,17 +1,80 @@
 import React, { Component, PropTypes } from 'react';
 
+import { Redirect } from 'react-router-dom';
+import { TextField, FlatButton } from 'material-ui'
+
+import {connect} from 'react-redux';
+
+import {createPoll} from '../../actions/poll';
+
 class NewPollPage extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      name: '',
+      options: '',
+      errors: {
+        name: '',
+        options: '',
+      }
+    }
+  }
+
+  submit = (name, options) => {
+    if (!name) {
+      this.setState({ errors: { name: 'This field is required' } })
+      return;
+    }
+    if (!options) {
+      this.setState({ errors: { options: 'This field is required' } })
+      return;
+    }
+    this.props.createPoll({ name, options: options.split(/\n/) });
+    return <Redirect to="/" />
+  }
+
   render() {
+    const { name, options } = this.state;
+
     return (
       <div>
-        NewPollPage
+        <div>
+          <TextField
+            floatingLabelText="Name"
+            errorText={this.state.errors.name}
+            value={name}
+            onChange={(_, name) => this.setState({ name })} />
+        </div>
+        <div>
+          <TextField
+            floatingLabelText="Options"
+            value={options}
+            errorText={this.state.errors.options}            
+            onChange={(_, options) => this.setState({ options })}
+            multiLine
+            hintText="Separated by new line" />
+        </div>
+        <div>
+          <FlatButton label="Submit" onTouchTap={() => this.submit(name, options)} />
+        </div>
+
       </div>
     );
   }
 }
 
 NewPollPage.propTypes = {
-  savePoll: PropTypes.func,
+  createPoll: PropTypes.func.isRequired,
 };
 
-export default NewPollPage;
+
+const mapStateToProps = (state) => ({
+
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  createPoll: (poll) => dispatch(createPoll(poll)),
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(NewPollPage);
