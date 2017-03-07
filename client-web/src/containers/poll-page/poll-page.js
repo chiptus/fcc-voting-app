@@ -1,18 +1,15 @@
-import React, { Component, PropTypes } from 'react';
+import {connect} from 'react-redux';
 
-class PollPage extends Component {
-  render() {
-    return (
-      <div>
-        PollPage
-      </div>
-    );
-  }
-}
+import {voteForPoll} from '../../actions/poll';
 
-PollPage.propTypes = {
-  poll: PropTypes.object,
-  savePoll: PropTypes.func,
-};
+import PollPage from '../../components/poll-page';
 
-export default PollPage;
+const mapStateToProps = (state,ownProps) => ({
+  poll: state.entities.polls[ownProps.id],
+});
+
+const mapDispatchToProps = (dispatch,ownProps) => ({
+  vote: (optionId) => dispatch(voteForPoll(ownProps.id, optionId))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PollPage);
