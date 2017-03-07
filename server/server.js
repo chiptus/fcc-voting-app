@@ -5,7 +5,7 @@ var routes = require('./routes/index.js');
 var mongoose = require('mongoose');
 var passport = require('passport');
 var session = require('express-session');
-
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 var app = express();
@@ -14,7 +14,7 @@ require('./config/passport')(passport);
 
 mongoose.connect(process.env.MONGO_URI);
 mongoose.Promise = global.Promise;
-
+app.use(cors({origin:'http://localhost:3000'}))
 app.use(bodyParser.json());
 
 app.use(session({
