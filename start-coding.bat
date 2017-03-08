@@ -1,1 +1,1 @@
-code ./client-web && code ./server
+code ./client-web && code ./server && sudo service mongod start
