@@ -3,6 +3,7 @@ import React, { Component, PropTypes } from 'react';
 import Header from './poll-header';
 import OptionsList from './options-list';
 import Vote from './vote';
+import VotingChart from './voting-chart';
 
 export default class PollPage extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ export default class PollPage extends Component {
       <div>
         <Header name={poll.name} />
         <OptionsList options={options} />
+        <VotingChart options={options} />
         <Vote
           options={options}
           vote={() => vote(this.state.voteOptionId)}
