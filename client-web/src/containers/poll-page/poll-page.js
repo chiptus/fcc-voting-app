@@ -6,6 +6,7 @@ import PollPage from '../../components/poll-page';
 
 const mapStateToProps = (state,ownProps) => ({
   poll: state.entities.polls[ownProps.id],
+  options: state.entities.polls[ownProps.id] && state.entities.polls[ownProps.id].options.map(id => state.entities.options[id])
 });
 
 const mapDispatchToProps = (dispatch,ownProps) => ({
