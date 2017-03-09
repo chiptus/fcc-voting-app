@@ -1,13 +1,12 @@
 import * as ACTIONS from '../constants/actions';
-import {SERVER_URL} from '../config';
+import { SERVER_URL } from '../config';
 
-import axios from 'axios';
+// import axios from 'axios';
 
 export function createPoll(poll) {
   return dispatch => {
-    dispatch(requestCreatePoll(poll));
-    return axios.post(`${SERVER_URL}/api/create-poll`, poll)
-      .then(({data}) => {
+    dispatch(requestCreatePoll(poll))
+      .then(({ data }) => {
         dispatch(addPoll(data))
       })
       .catch(error => {
@@ -18,7 +17,14 @@ export function createPoll(poll) {
 
 function requestCreatePoll(poll) {
   return {
-    type: ACTIONS.REQUEST_CREATE_POLL
+    type: ACTIONS.REQUEST_CREATE_POLL,
+    payload: {
+      request: {
+        url: `${SERVER_URL}/api/create-poll`,
+        data: poll,
+        method: 'post'
+      }
+    }
   }
 }
 
@@ -32,7 +38,7 @@ function addPoll(poll) {
   }
 }
 
-function createPollFailed(error){
+function createPollFailed(error) {
   return {
     type: ACTIONS.REQUEST_CREATE_OPTION,
     payload: new Error(error),

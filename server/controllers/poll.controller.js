@@ -15,10 +15,11 @@ function unique(array) {
   return Array.from(new Set(array));
 }
 
-function createPoll(name, options = []) {
+function createPoll(name, options = [], userId) {
   return Poll.create({
     name,
     options: unique(options).map(name => ({ name })),
+    created_by_user_id: userId
   })
 }
 

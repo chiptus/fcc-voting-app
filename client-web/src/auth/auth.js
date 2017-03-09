@@ -7,7 +7,8 @@ const FACEBOOK_CLIENT_ID = '700042113498773';
 
 hello.init({
   facebook: FACEBOOK_CLIENT_ID,
-})
+});
+
 
 export default () => {
     return hello('facebook')

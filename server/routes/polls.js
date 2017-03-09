@@ -3,14 +3,24 @@ const { isLoggedIn } = require('./utils');
 
 module.exports = (app) => {
 
-	app.post('/api/create-poll', isLoggedIn, ({body}, res) => {
+	app.post('/api/create-poll', isLoggedIn, ({body, profile}, res) => {
 		if (!body.name) {
 			return res.json({ error: 'name isn\'t supplied' });
 		}
-		return PollCtrl.createPoll(body.name, body.options)
+		return PollCtrl.createPoll(body.name, body.options, profile.dbId)
 			.then(document => res.json(document),
 			reason => res.json({ error: reason }));
 	});
+
+	//get user polls
+
+	app.get('/api/polls-for-user', isLoggedIn, ({profile}, res) => {
+		return PollCtrl.getListOfPollsForUser(profile.dbId).
+		then(
+			polls => res.json(polls),
+			reason => res.json({error: reason})
+		)
+	})
 
 	//vote for poll
 	app.post('/api/poll/:id/vote/:optionId', ({params: {id, optionId }}, res) => {

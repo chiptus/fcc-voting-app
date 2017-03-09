@@ -4,7 +4,7 @@ const {
 	validateWithFacebook,
 	createJwt,
 } = require('../auth');
-const {saveUser} = require('../controllers/userController');
+const { saveUser } = require('../controllers/userController');
 
 var path = process.cwd();
 
@@ -40,17 +40,25 @@ module.exports = function (app, passport) {
 
 	app.post('/auth/facebook', ({ body: { socialToken } }, res, next) => {
 		validateWithFacebook(socialToken)
-			.then(profile => ({
-				jwt: createJwt(profile, 'CLIENT-APP'),
-				name: profile.name,
-				socialId: profile.id
-			}))
 			.then(user => {
-				return saveUser(user.name, user.socialId, 'facebook', socialToken)
-					.then(() => user);
+				return Promise.all([
+					saveUser(user.name, user.id, 'facebook', socialToken),
+					user
+				])
 			})
-			.then(({ jwt, name }) => {
-				res.json({ token: jwt, user: {name} });
+			.then(([{ _id }, user]) => ({
+				token: createJwt({
+					dbId: _id,
+					socialId: user.id,
+					name: user.name,
+				}, 'CLIENT-APP'),
+				user: {
+					name: user.name,
+					id: _id,
+				}
+			}))
+			.then(response => {
+				res.json(response);
 			})
 			.catch(err => {
 				res.sendStatus(403);
