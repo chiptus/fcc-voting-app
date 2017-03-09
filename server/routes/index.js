@@ -3,9 +3,10 @@ const pollsRoutes = require('./polls');
 const {
 	validateWithFacebook,
 	createJwt,
-	} = require('../auth');
+} = require('../auth');
+const {saveUser} = require('../controllers/userController');
+
 var path = process.cwd();
-var ClickHandler = require(path + '/controllers/clickHandler.server.js');
 
 module.exports = function (app, passport) {
 
@@ -45,7 +46,7 @@ module.exports = function (app, passport) {
 				socialId: profile.id
 			}))
 			.then(user => {
-				return userCtrl.saveUser(user.name, user.socialId, 'facebook', socialToken)
+				return saveUser(user.name, user.socialId, 'facebook', socialToken)
 					.then(() => user);
 			})
 			.then(({ jwt, name }) => {
