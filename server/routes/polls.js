@@ -39,7 +39,7 @@ module.exports = (app) => {
 				reason => res.json({ error: reason })
 				);
 		})
-		.delete((req, res) => {
+		.delete(isLoggedIn, (req, res) => {
 			return PollCtrl.deletePoll(req.params.id)
 				.then(
 				() => res.json({ success: true }),
@@ -57,7 +57,7 @@ module.exports = (app) => {
 	});
 
 	//add option to poll
-	app.post('/api/poll/:id/add-option/:name', ({params: {id, name}}, res) => {
+	app.post('/api/poll/:id/add-option/:name', isLoggedIn, ({params: {id, name}}, res) => {
 		if (!id) {
 			return res.json({ error: 'id isn\'t supplied' });
 		}
@@ -71,7 +71,8 @@ module.exports = (app) => {
 			);
 	});
 
-	app.post('/api/poll/:id/change-name/:name', ({params: {id, name}}, res) => {
+	//change poll's name
+	app.post('/api/poll/:id/change-name/:name', isLoggedIn, ({params: {id, name}}, res) => {
 		if (!id) {
 			return res.json({ error: 'id isn\'t supplied' });
 		}
