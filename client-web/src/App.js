@@ -7,9 +7,12 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import theme from './theme';
 
 import './App.css';
+
+import {PrivateRoute} from './auth/components';
 import { getPolls } from './actions/polls-list';
 import { login, authDiscardToken } from './actions/auth';
 import { Header, Footer } from './components/layout';
+
 
 // import LoginPage from './auth/login-page/login-page';
 
@@ -31,9 +34,9 @@ class App extends Component {
             <Header {...{ isLoggedIn, login, logout }} />
             <div className="content">
               <Switch>
-                <Route path="/my-polls" render={({ push }) => <MyPollsPage openPoll={createOpenPollFunction(push)} />} />
+                <PrivateRoute path="/my-polls" render={({ push }) => <MyPollsPage openPoll={createOpenPollFunction(push)} />} />
                 {/*<Route path="/login" component={LoginPage} />*/}
-                <Route path="/new-poll" render={({ push }) => <NewPollPage goToList={() => push('/')} />} />
+                <PrivateRoute path="/new-poll" render={({ push }) => <NewPollPage goToList={() => push('/')} />} />
                 <Route path="/poll/:id" render={({ match: { params: { id } }, push }) => <PollPage {...{ id, push }} />}>
                 </Route>
                 <Route path="/" render={({ push }) => <HomePage openPoll={createOpenPollFunction(push)} />} />
