@@ -2,23 +2,23 @@ import React, { PropTypes } from 'react';
 import { AppBar, FlatButton } from 'material-ui';
 import { NavLink } from 'react-router-dom';
 
-const SignedIn = ({ goHome, goMyPolls, goNewPoll, signOut }) =>
+const SignedIn = ({ logout }) =>
   (<div>
     <FlatButton label={<NavLink to="/">Home</NavLink>} />
     <FlatButton label={<NavLink to="/my-polls">My Polls</NavLink>} />
     <FlatButton label={<NavLink to="/new-poll">New Poll</NavLink>} />
-    <FlatButton label={<NavLink to="/sign-out">Sign Out</NavLink>} />
+    <FlatButton label="Sign Out" onTouchTap={logout} />
   </div>);
 
-const SignedOut = ({ goHome, signIn }) =>
+const SignedOut = ({ login }) =>
   (
     <div>
       <FlatButton label={<NavLink to="/">Home</NavLink>} />
-      <FlatButton label={<NavLink to="/sign-in">Sign In</NavLink>} />
+      <FlatButton label="Sign In" onTouchTap={login} />
     </div>
   );
 
-const Header = ({ signedIn = true }) => {
+const Header = ({ isLoggedIn = false, login, logout }) => {
 
 
   return (
@@ -26,7 +26,7 @@ const Header = ({ signedIn = true }) => {
       showMenuIconButton={false}
       className="header"
       iconElementRight={
-        signedIn ? <SignedIn /> : <SignedOut />
+        isLoggedIn ? <SignedIn logout={logout}/> : <SignedOut login={login}/>
       }
     >
 
@@ -35,7 +35,9 @@ const Header = ({ signedIn = true }) => {
 };
 
 Header.propTypes = {
-  signedIn: PropTypes.bool
+  isLoggedIn: PropTypes.bool,
+  login: PropTypes.func.isRequired,
+  logout: PropTypes.func.isRequired,
 }
 
 export default Header;
