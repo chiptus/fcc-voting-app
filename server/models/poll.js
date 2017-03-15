@@ -18,7 +18,6 @@ var Poll = new Schema({
       default: 0,
     }
   }],
-  created_by_user_id: Schema.ObjectId, //created_by user id
 });
 
 module.exports = mongoose.model('Poll', Poll);
