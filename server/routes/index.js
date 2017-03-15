@@ -11,32 +11,12 @@ var path = process.cwd();
 module.exports = function (app, passport) {
 
 
-	// var clickHandler = new ClickHandler();
-
-	// app.route('/')
-	// 	.get(function (req, res) {
-	// 		res.sendFile(path + '/public/react-site/build/index.html');
-	// 	});
-
 	// route to test if the user is logged in or not
 	app.get('/loggedin',
 		function (req, res) {
 			res.send(req.isAuthenticated() ? req.user : '0');
 		});
 
-	// route to log in 
-	// app.post('/login',
-	// 	passport.authenticate('local'),
-	// 	function (req, res) {
-	// 		res.send(req.user);
-	// 	});
-
-	// // route to log out
-	// app.post('/logout',
-	// 	function (req, res) {
-	// 		req.logOut();
-	// 		res.send(200);
-	// 	});
 
 	app.post('/auth/facebook', ({ body: { socialToken } }, res, next) => {
 		validateWithFacebook(socialToken)
@@ -46,7 +26,7 @@ module.exports = function (app, passport) {
 					user
 				])
 			})
-			.then(([{ _id }, user]) => ({
+			.then(([{ _id, polls }, user]) => ({
 				token: createJwt({
 					dbId: _id,
 					socialId: user.id,
@@ -54,7 +34,8 @@ module.exports = function (app, passport) {
 				}, 'CLIENT-APP'),
 				user: {
 					name: user.name,
-					id: _id,
+					_id,
+					polls,
 				}
 			}))
 			.then(response => {

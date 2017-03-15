@@ -5,7 +5,7 @@ const {
   AUTH_SET_USER
 } = AUTH;
 
-export default function authReducer(state = {user: '', token: ''}, action){
+export default function authReducer(state = {userId: '', token: ''}, action){
   switch(action.type){
     // saves the token into the state
     case AUTH_SET_TOKEN:
@@ -20,7 +20,7 @@ export default function authReducer(state = {user: '', token: ''}, action){
     case AUTH_SET_USER:
       return {
         ...state,
-        user: action.payload,
+        userId: action.payload._id,
       };
     // as always, on default do nothing
     default:
