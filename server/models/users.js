@@ -8,6 +8,10 @@ var User = new Schema({
 		facebook: String
 	},
 	name: String,
+	polls: [{
+		type: Schema.Types.ObjectId,
+		ref: 'Poll',
+	}]
 });
 
 module.exports = mongoose.model('User', User);
