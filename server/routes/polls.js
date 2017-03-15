@@ -3,7 +3,7 @@ const { isLoggedIn } = require('./utils');
 
 module.exports = (app) => {
 
-	app.post('/api/create-poll', isLoggedIn, ({body, profile}, res) => {
+	app.post('/api/create-poll', isLoggedIn, ({ body, profile }, res) => {
 		if (!body.name) {
 			return res.json({ error: 'name isn\'t supplied' });
 		}
@@ -14,16 +14,16 @@ module.exports = (app) => {
 
 	//get user polls
 
-	app.get('/api/polls-for-user', isLoggedIn, ({profile}, res) => {
-		return PollCtrl.getListOfPollsForUser(profile.dbId).
-		then(
+	app.get('/api/polls-for-user', isLoggedIn, ({ profile }, res) => {
+		return PollCtrl.getListOfPollsForUser(profile.dbId)
+			.then(
 			polls => res.json(polls),
-			reason => res.json({error: reason})
-		)
+			reason => res.json({ error: reason })
+			)
 	})
 
 	//vote for poll
-	app.post('/api/poll/:id/vote/:optionId', ({params: {id, optionId }}, res) => {
+	app.post('/api/poll/:id/vote/:optionId', ({ params: { id, optionId } }, res) => {
 		if (!id) {
 			return res.json({ error: 'id isn\'t supplied' });
 		}
@@ -39,7 +39,7 @@ module.exports = (app) => {
 
 	//get poll
 	app.route('/api/poll/:id')
-		.get(({params: {id}}, res) => {
+		.get(({ params: { id } }, res) => {
 			if (!id) {
 				return res.json({ error: 'id isn\'t supplied' });
 			}
@@ -67,7 +67,7 @@ module.exports = (app) => {
 	});
 
 	//add option to poll
-	app.post('/api/poll/:id/add-option/:name', isLoggedIn, ({params: {id, name}}, res) => {
+	app.post('/api/poll/:id/add-option/:name', isLoggedIn, ({ params: { id, name } }, res) => {
 		if (!id) {
 			return res.json({ error: 'id isn\'t supplied' });
 		}
@@ -82,7 +82,7 @@ module.exports = (app) => {
 	});
 
 	//change poll's name
-	app.post('/api/poll/:id/change-name/:name', isLoggedIn, ({params: {id, name}}, res) => {
+	app.post('/api/poll/:id/change-name/:name', isLoggedIn, ({ params: { id, name } }, res) => {
 		if (!id) {
 			return res.json({ error: 'id isn\'t supplied' });
 		}

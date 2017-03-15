@@ -1,8 +1,6 @@
 import * as ACTIONS from '../constants/actions';
 import { SERVER_URL } from '../config';
 
-// import axios from 'axios';
-
 export function createPoll(poll) {
   return dispatch => {
     dispatch(requestCreatePoll(poll))
