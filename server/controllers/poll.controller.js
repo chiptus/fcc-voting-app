@@ -1,4 +1,5 @@
 const Poll = require('../models/poll');
+const User = require('../models/users');
 
 module.exports = {
   createPoll,
@@ -16,11 +17,19 @@ function unique(array) {
 }
 
 function createPoll(name, options = [], userId) {
-  return Poll.create({
+  const poll = new Poll({
     name,
     options: unique(options).map(name => ({ name })),
-    created_by_user_id: userId
-  })
+  });
+  return poll.save().then(() =>
+    User.findByIdAndUpdate(userId, {
+      $push: {
+        'polls': poll
+      }
+    }).exec()
+      .then(
+      result => ({ userId: userId, poll })
+      ))
 }
 
 function getPoll(id) {
