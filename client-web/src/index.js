@@ -4,6 +4,7 @@ import App from './App';
 import './index.css';
 import { preloadedState } from './middleware/local-storage';
 import './init/touch-tap';
+import 'font-awesome/css/font-awesome.css'
 
 import { createStore } from 'redux';
 
