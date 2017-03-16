@@ -5,7 +5,7 @@ import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle, FlatButton} from 
 
 const Footer = () => {
   return (
-    
+    <div>
       <Toolbar>
         <ToolbarTitle text="Created by Chaim Lando" />
 
@@ -17,7 +17,7 @@ const Footer = () => {
           <FlatButton label={<a href="http://tdigitalnomad.blogspot.com">Blog</a>} />
         </ToolbarGroup>
       </Toolbar>
-    
+    </div>
   );
 };
 

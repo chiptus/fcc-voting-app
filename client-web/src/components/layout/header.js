@@ -22,15 +22,16 @@ const Header = ({ isLoggedIn = false, login, logout }) => {
 
 
   return (
-    <AppBar title="Voty"
-      showMenuIconButton={false}
-      className="header"
-      iconElementRight={
-        isLoggedIn ? <SignedIn logout={logout}/> : <SignedOut login={login}/>
-      }
-    >
+    <div>
+      <AppBar title="Voty"
+        showMenuIconButton={false}
+        className="header"
+        iconElementRight={
+          isLoggedIn ? <SignedIn logout={logout} /> : <SignedOut login={login} />
+        }
+      />
+    </div>
 
-    </AppBar>
   );
 };
 
