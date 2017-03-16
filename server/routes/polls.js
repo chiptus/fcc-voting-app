@@ -9,7 +9,7 @@ module.exports = (app) => {
 		}
 		return PollCtrl.createPoll(body.name, body.options, profile.dbId)
 			.then(document => res.json(document),
-			reason => res.json({ error: reason }));
+			reason => res.status(400).json({ error: reason }));
 	});
 
 	//get user polls
@@ -18,22 +18,22 @@ module.exports = (app) => {
 		return PollCtrl.getListOfPollsForUser(profile.dbId)
 			.then(
 			polls => res.json(polls),
-			reason => res.json({ error: reason })
+			reason => res.status(400).json({ error: reason })
 			)
 	})
 
 	//vote for poll
 	app.post('/api/poll/:id/vote/:optionId', ({ params: { id, optionId } }, res) => {
 		if (!id) {
-			return res.json({ error: 'id isn\'t supplied' });
+			return res.status(400).json({ error: 'id isn\'t supplied' });
 		}
 		if (!optionId) {
-			return res.json({ error: 'option id isn\'t supplied' });
+			return res.status(400).json({ error: 'option id isn\'t supplied' });
 		}
 		return PollCtrl.voteForPoll(id, optionId)
 			.then(
 			() => res.json({ success: true }),
-			reason => res.json({ error: reason })
+			reason => res.status(400).json({ error: reason })
 			);
 	});
 
@@ -46,14 +46,14 @@ module.exports = (app) => {
 			return PollCtrl.getPoll(id)
 				.then(
 				doc => res.json(doc),
-				reason => res.json({ error: reason })
+				reason => res.status(400).json({ error: reason })
 				);
 		})
 		.delete(isLoggedIn, (req, res) => {
 			return PollCtrl.deletePoll(req.params.id)
 				.then(
 				() => res.json({ success: true }),
-				reason => res.json({ error: reason })
+				reason => res.status(400).json({ error: reason })
 				);
 		});
 
@@ -62,7 +62,7 @@ module.exports = (app) => {
 		return PollCtrl.getListOfPolls()
 			.then(
 			list => res.json(list),
-			reason => res.json({ error: reason })
+			reason => res.status(400).json({ error: reason })
 			)
 	});
 
@@ -77,7 +77,7 @@ module.exports = (app) => {
 		return PollCtrl.addOption(id, name)
 			.then(
 			() => res.json({ success: true }),
-			reason => res.json({ error: reason.message || reason })
+			reason => res.status(400).json({ error: reason.message || reason })
 			);
 	});
 
@@ -92,7 +92,7 @@ module.exports = (app) => {
 		return PollCtrl.changePollName(id, name)
 			.then(
 			() => res.json({ success: true }),
-			reason => res.json({ error: reason.message || reason })
+			reason => res.status(400).json({ error: reason.message || reason })
 			);
 	});
 
