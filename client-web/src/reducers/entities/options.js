@@ -9,7 +9,7 @@ export default function optionsReducer(state = defaultState, { type, payload, er
     case ACTIONS.ADD_POLL:
       return {
         ...state,
-        ...convertArrayToObject(payload.options)
+        ...convertArrayToObject(payload.poll.options)
       };
     case ACTIONS.RECEIVED_POLLS:
       return convertArrayToObject(
@@ -17,10 +17,10 @@ export default function optionsReducer(state = defaultState, { type, payload, er
           .map(poll => poll.options.filter(d => d))
           .reduce((acc, pollOptions) => [...acc, ...pollOptions], [])
       );
-    case ACTIONS.CREATE_OPTION:
+    case ACTIONS.ADD_OPTION:
       return {
         ...state,
-        [payload.option.id]: payload.option,
+        [payload.option._id]: payload.option,
       }
       
     case ACTIONS.RESPONSE_VOTE:  

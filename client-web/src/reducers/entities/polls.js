@@ -17,17 +17,22 @@ export default function entitiesPollsReducer(state = defaultState, { type, paylo
     case ACTIONS.ADD_POLL:
       return {
         ...state,
-        [payload.poll._id]: payload.poll,
+        [payload.poll._id]: {
+          ...payload.poll,
+          options: [
+            ...payload.poll.options.map(({_id}) => _id)
+          ]
+        },
       };
       
-    case ACTIONS.CREATE_OPTION:
+    case ACTIONS.ADD_OPTION:
       return {
         ...state,
         [payload.pollId]: {
           ...state[payload.pollId],
           options: [
             ...state[payload.pollId].options,
-            payload.option.id,
+            payload.option._id,
           ]
         }
       }
