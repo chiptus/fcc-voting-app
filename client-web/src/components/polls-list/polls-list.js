@@ -13,7 +13,7 @@ pollsList.propTypes = {
   polls: PropTypes.arrayOf(PropTypes.shape({
     _id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-  })),
+  })).isRequired,
   openPoll: PropTypes.func,
 };
 
