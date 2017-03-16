@@ -6,11 +6,11 @@ import { PollsList } from '../../components/';
 
 class MyPollPage extends Component {
   render() {
-    const { polls } = this.props;
+    const { polls, userName } = this.props;
 
     return (
       <div>
-        Need to change to load only the current user's polls
+        <h1>{userName}</h1>
         <PollsList polls={polls} openPoll={this.props.openPoll} />
       </div>
     );
@@ -23,13 +23,15 @@ MyPollPage.propTypes = {
     name: PropTypes.string.isRequired,
   })).isRequired,
   openPoll: PropTypes.func.isRequired,
+  userName: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
   const userId = state.auth.userId;
-  const userPollsIds = state.entities.users[userId].polls;
+  const {polls: userPollsIds, name} = state.entities.users[userId];
   return ({
-    polls: userPollsIds.map(id => state.entities.polls[id])
+    polls: userPollsIds.map(id => state.entities.polls[id]),
+    userName: name,
   });
 }
 
