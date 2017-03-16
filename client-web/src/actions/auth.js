@@ -17,8 +17,8 @@ export function login() {
           dispatch(authSetToken(data.token));
           dispatch(authSetUser(data.user));
         },
-        error => {
-          dispatch(loginFailed(error))
+        reason => {
+          dispatch(loginFailed(reason.error.message))
         } 
       )
   }
