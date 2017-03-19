@@ -1,15 +1,16 @@
 import * as ACTIONS from '../../constants/actions';
 import { convertArrayToObject } from './utils';
-const defaultState = {
+const defaultState = {};
 
-};
-
-export default function optionsReducer(state = defaultState, { type, payload, error, meta }) {
+export default function optionsReducer(
+  state = defaultState,
+  { type, payload, error, meta }
+) {
   switch (type) {
     case ACTIONS.ADD_POLL:
       return {
         ...state,
-        ...convertArrayToObject(payload.poll.options)
+        ...convertArrayToObject(payload.poll.options),
       };
     case ACTIONS.RECEIVED_POLLS:
       return convertArrayToObject(
@@ -20,18 +21,18 @@ export default function optionsReducer(state = defaultState, { type, payload, er
     case ACTIONS.ADD_OPTION:
       return {
         ...state,
-        [payload.option._id]: payload.option,
-      }
-      
-    case ACTIONS.RESPONSE_VOTE:  
+        ...convertArrayToObject(payload.poll.options),
+      };
+
+    case ACTIONS.RESPONSE_VOTE:
       //add vote
       return {
         ...state,
         [payload.optionId]: {
           ...state[payload.optionId],
-          value: state[payload.optionId].value + 1, 
+          value: state[payload.optionId].value + 1,
         },
-      }
+      };
     case ACTIONS.REQUEST_CREATE_OPTION:
     case ACTIONS.CREATE_POLL_REQUEST:
     case ACTIONS.REQUEST_POLLS:

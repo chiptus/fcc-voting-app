@@ -1,5 +1,6 @@
 const Poll = require('../models/poll');
 const User = require('../models/users');
+var { Schema: { Types: { ObjectId } } } = require('mongoose');
 
 module.exports = {
   createPoll,
@@ -9,8 +10,8 @@ module.exports = {
   getListOfPollsForUser,
   deletePoll,
   addOption,
-  changePollName
-}
+  changePollName,
+};
 
 function unique(array) {
   return Array.from(new Set(array));
@@ -24,42 +25,39 @@ function createPoll(name, options = [], userId) {
   return poll.save().then(() =>
     User.findByIdAndUpdate(userId, {
       $push: {
-        'polls': poll
-      }
-    }).exec()
-      .then(
-      result => ({ userId: userId, poll })
-      ))
+        polls: poll,
+      },
+    })
+      .exec()
+      .then(result => ({ userId: userId, poll })));
 }
 
 function getPoll(id) {
-  return Poll.findById(id)
-    .exec()
+  return Poll.findById(id).exec();
 }
 
 function voteForPoll(id, optionId) {
-  return Poll.findOneAndUpdate({ _id: id, 'options._id': optionId }, {
-    $inc: {
-      'options.$.value': 1,
+  return Poll.findOneAndUpdate(
+    { _id: id, 'options._id': optionId },
+    {
+      $inc: {
+        'options.$.value': 1,
+      },
     }
-  })
-    .exec();
+  ).exec();
 }
 
 //todo add pagination
 function getListOfPolls() {
-  return Poll.find({}, { __v: 0 })
-    .exec();
+  return Poll.find({}, { __v: 0 }).exec();
 }
 
 function getListOfPollsForUser(userId) {
-  return Poll.find({ created_by_user_id: userId }, { name: 1, _id: 1 })
-    .exec();
+  return Poll.find({ created_by_user_id: userId }, { name: 1, _id: 1 }).exec();
 }
 
 function deletePoll(pollId) {
-  return Poll.remove({ _id: pollId })
-    .exec();
+  return Poll.remove({ _id: pollId }).exec();
 }
 
 function addOption(pollId, optionName) {
@@ -69,16 +67,25 @@ function addOption(pollId, optionName) {
   if (!pollId) {
     return Promise.reject('Missing poll id');
   }
-  return Poll.findByIdAndUpdate(pollId, {
-    $push: {
-      'options': { name: optionName }
-    }
-  });
+  const option = {
+    name: optionName,
+    // _id: new ObjectId(),
+  };
+  return Poll.findByIdAndUpdate(
+    pollId,
+    {
+      $push: {
+        options: option,
+      },
+    },
+    { new: true }
+  );
+  // }).then(() => option);
 }
 
 function changePollName(pollId, newName) {
   return Poll.findByIdAndUpdate(pollId, {
-    name: newName
+    name: newName,
   });
 }
 

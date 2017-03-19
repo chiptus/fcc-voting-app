@@ -10,22 +10,22 @@ export default function addOptionRequest(pollId, option) {
         method: 'post',
       },
       options: {
-        onSuccess: ({ dispatch, response }) => dispatch(addOption(pollId, response.data)),
-        onError: ({ dispatch, error }) => dispatch(addOptionFail(error))
-      }
-
-    }
-  }
+        onSuccess: ({ dispatch, response }) =>
+          dispatch(addOption(pollId, response.data)),
+        onError: ({ dispatch, error }) => dispatch(addOptionFail(error)),
+      },
+    },
+  };
 }
 
-function addOption(pollId, option) {
+function addOption(pollId, poll) {
   return {
     type: ACTIONS.ADD_OPTION,
     payload: {
       pollId,
-      option
-    }
-  }
+      poll,
+    },
+  };
 }
 
 function addOptionFail(error) {
@@ -33,5 +33,5 @@ function addOptionFail(error) {
     type: ACTIONS.ADD_OPTION,
     payload: new Error(error),
     error: true,
-  }
+  };
 }

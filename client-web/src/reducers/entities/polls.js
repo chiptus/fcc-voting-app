@@ -10,7 +10,10 @@ const defaultState = {};
 };
 */
 
-export default function entitiesPollsReducer(state = defaultState, { type, payload, error, meta }) {
+export default function entitiesPollsReducer(
+  state = defaultState,
+  { type, payload, error, meta }
+) {
   switch (type) {
     case ACTIONS.RECEIVED_POLLS:
       return receivedPolls(payload.items);
@@ -19,12 +22,10 @@ export default function entitiesPollsReducer(state = defaultState, { type, paylo
         ...state,
         [payload.poll._id]: {
           ...payload.poll,
-          options: [
-            ...payload.poll.options.map(({_id}) => _id)
-          ]
+          options: [...payload.poll.options.map(({ _id }) => _id)],
         },
       };
-      
+
     case ACTIONS.ADD_OPTION:
       return {
         ...state,
@@ -32,10 +33,10 @@ export default function entitiesPollsReducer(state = defaultState, { type, paylo
           ...state[payload.pollId],
           options: [
             ...state[payload.pollId].options,
-            payload.option._id,
-          ]
-        }
-      }
+            ...payload.poll.options.map(({ _id }) => _id),
+          ],
+        },
+      };
     case ACTIONS.RESPONSE_VOTE:
     case ACTIONS.CREATE_POLL_REQUEST:
     case ACTIONS.REQUEST_POLLS:
@@ -46,10 +47,12 @@ export default function entitiesPollsReducer(state = defaultState, { type, paylo
 }
 
 function receivedPolls(polls = []) {
-  return convertArrayToObject(polls.map(poll => ({
-    ...poll,
-    options: poll.options.filter(o => o).map(o => o._id),
-  })));
+  return convertArrayToObject(
+    polls.map(poll => ({
+      ...poll,
+      options: poll.options.filter(o => o).map(o => o._id),
+    }))
+  );
 }
 
 // function normalizePolls(polls = []) {
@@ -59,4 +62,3 @@ function receivedPolls(polls = []) {
 //   //   options: poll.options.map(o => o.id)
 //   // }))
 // }
-
