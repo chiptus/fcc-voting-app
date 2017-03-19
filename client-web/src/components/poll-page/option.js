@@ -1,14 +1,14 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from "react";
 
-const Option = ({name, value = 0}) => {
-  return (
-    <div>{name} {value}</div>
-  );
+import { ListItem } from "material-ui";
+
+const Option = ({ name, value = 0, vote }) => {
+  return <ListItem onTouchTap={vote}>{name} {value}</ListItem>;
 };
 
 Option.propTypes = {
   name: PropTypes.string.isRequired,
-  value: PropTypes.number,
+  value: PropTypes.number
 };
 
 export default Option;
