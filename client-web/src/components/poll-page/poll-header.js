@@ -1,13 +1,16 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes } from "react";
 
-const Header = ({name}) => {
+const PollHeader = ({ name, author }) => {
   return (
-    <h1>{name}</h1>
+    <header>
+      <h1 style={{ textAlign: "center" }}>{name}</h1>
+      <h2 style={{ textAlign: "center" }}>by {author}</h2>
+    </header>
   );
 };
 
-Header.propTypes = {
-  name: PropTypes.string.isRequired,
+PollHeader.propTypes = {
+  name: PropTypes.string.isRequired
 };
 
-export default Header;
+export default PollHeader;
