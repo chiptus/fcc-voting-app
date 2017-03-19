@@ -10,7 +10,7 @@ import { Paper } from "material-ui";
 
 export default class PollPage extends Component {
   render() {
-    const { poll, vote, options, addOption } = this.props;
+    const { poll, vote, options, addOption, isSignedIn = false } = this.props;
     if (!poll) {
       return null;
     }
@@ -35,7 +35,8 @@ export default class PollPage extends Component {
         >
           <div style={{ flex: 1, height: "100%" }}>
             <OptionsList options={options} vote={vote} />
-            <AddOption addOption={addOption} pollId={poll._id} />
+            {isSignedIn &&
+              <AddOption addOption={addOption} pollId={poll._id} />}
           </div>
           <div style={{ flex: 1, height: "100%" }}>
             <VotingChart options={options} />
@@ -62,5 +63,6 @@ PollPage.propTypes = {
   ),
   vote: PropTypes.func.isRequired,
   isVotedFor: PropTypes.bool,
-  addOption: PropTypes.func.isRequired
+  addOption: PropTypes.func.isRequired,
+  isSignedIn: PropTypes.bool
 };
