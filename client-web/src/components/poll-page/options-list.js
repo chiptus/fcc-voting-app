@@ -1,6 +1,6 @@
-import React, { PropTypes } from "react";
-import { List } from "material-ui";
-import Option from "./option";
+import React, { PropTypes } from 'react';
+import { List } from 'material-ui';
+import Option from './option';
 
 const OptionsList = ({ options, vote }) => {
   return (
@@ -17,9 +17,9 @@ OptionsList.propTypes = {
     PropTypes.shape({
       _id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      value: PropTypes.number
+      value: PropTypes.number,
     })
-  )
+  ),
 };
 
 export default OptionsList;
