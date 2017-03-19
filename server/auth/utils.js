@@ -11,7 +11,11 @@ module.exports = {
 function isReqLoggedIn(req, res, next) {
   // console.warn("auth is not implemented");
   // return next();
-  const profile = req.query.jwt && verifyJwt(req.query.jwt);
+  try {
+    const profile = req.query.jwt && verifyJwt(req.query.jwt);
+  } catch(e) {
+    return res.status(403).json(e);
+  }
   if (profile) {
     req.profile = profile;
     return next();
@@ -56,7 +60,7 @@ function createJwt(profile, issuer) {
 }
 
 function verifyJwt(jwtString, issuer) {
-    return jwt.verify(jwtString, PRIVATE_KEY, {
-        issuer
-    });
+  return jwt.verify(jwtString, PRIVATE_KEY, {
+    issuer
+  });
 }
