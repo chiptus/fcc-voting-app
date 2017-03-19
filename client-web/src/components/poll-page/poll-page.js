@@ -1,50 +1,49 @@
-import React, { Component, PropTypes } from 'react';
+import React, { Component, PropTypes } from "react";
 
-import Header from './poll-header';
-import OptionsList from './options-list';
-import Vote from './vote';
-import VotingChart from './voting-chart';
-import AddOption from './add-option';
-import SocialBar from './social-bar';
+import Header from "./poll-header";
+import OptionsList from "./options-list";
+import VotingChart from "./voting-chart";
+import AddOption from "./add-option";
+import SocialBar from "./social-bar";
+
+import { Paper } from "material-ui";
 
 export default class PollPage extends Component {
-  constructor(props) {
-    super(props);
-
-
-    this.state = {
-      voteOptionId: '',
-    }
-
-  }
-
   render() {
-    const { poll, isVotedFor, vote, options, addOption } = this.props;
+    const { poll, vote, options, addOption } = this.props;
     if (!poll) {
       return null;
     }
 
     return (
-      <div>
-        <Header name={poll.name} author={poll.author || 'Unknown'} />
-        <div style={{ display: 'flex' }}>
-          <div style={{ flex: 1 }}>
-            <OptionsList options={options} />
+      <Paper
+        style={{
+          height: "calc(100% - 37px)",
+          width: "60%",
+          margin: "0 auto",
+          padding: "25px"
+        }}
+        zDepth={4}
+      >
+        <Header name={poll.name} author={poll.author || "Unknown"} />
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            height: "calc(100% - 88px)"
+          }}
+        >
+          <div style={{ flex: 1, height: "100%" }}>
+            <OptionsList options={options} vote={vote} />
             <AddOption addOption={addOption} pollId={poll._id} />
-            <Vote
-              options={options}
-              vote={() => vote(this.state.voteOptionId)}
-              optionId={this.state.voteOptionId}
-              isVotedFor={isVotedFor}
-              onSelectChange={(id) => this.setState({ voteOptionId: id })} />
           </div>
-          <div style={{ flex: 1 }}>
+          <div style={{ flex: 1, height: "100%" }}>
             <VotingChart options={options} />
-            <SocialBar poll={poll}/>
+            <SocialBar poll={poll} />
           </div>
         </div>
-        
-      </div>
+
+      </Paper>
     );
   }
 }
@@ -52,14 +51,16 @@ export default class PollPage extends Component {
 PollPage.propTypes = {
   poll: PropTypes.shape({
     name: PropTypes.string.isRequired,
-    author: PropTypes.string,
+    author: PropTypes.string
   }),
-  options: PropTypes.arrayOf(PropTypes.shape({
-    _id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    value: PropTypes.number
-  })),
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      _id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      value: PropTypes.number
+    })
+  ),
   vote: PropTypes.func.isRequired,
   isVotedFor: PropTypes.bool,
-  addOption: PropTypes.func.isRequired,
+  addOption: PropTypes.func.isRequired
 };
