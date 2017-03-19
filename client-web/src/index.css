@@ -5,6 +5,11 @@ body {
   overflow: hidden;
 }
 
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .content {
   margin: 10px;
   flex: 5;
