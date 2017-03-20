@@ -11,6 +11,10 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cd server && node server.js"
   },
+  "engines": {
+    "npm": "4.1.2",
+    "node": "7.5.0"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chiptus/fcc-voting-app.git"
