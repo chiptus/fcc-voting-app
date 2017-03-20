@@ -1,6 +1,7 @@
-import axios from "axios";
-import axiosMiddleware from "redux-axios-middleware";
-import { authDiscardToken } from "../actions/auth";
+import axios from 'axios';
+import axiosMiddleware from 'redux-axios-middleware';
+import { authDiscardToken } from '../actions/auth';
+
 const client = axiosMiddleware(axios.create({}), {
   interceptors: {
     request: [
@@ -9,10 +10,10 @@ const client = axiosMiddleware(axios.create({}), {
           ...config,
           params: {
             ...config.params,
-            jwt: getState().auth.token
-          }
+            jwt: getState().auth.token,
+          },
         };
-      }
+      },
     ],
     response: [
       {
@@ -21,10 +22,10 @@ const client = axiosMiddleware(axios.create({}), {
             return dispatch(authDiscardToken());
           }
           return e;
-        }
-      }
-    ]
-  }
+        },
+      },
+    ],
+  },
 });
 
 export default client;
