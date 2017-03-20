@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { Paper } from 'material-ui';
 
 import Header from './poll-header';
 import OptionsList from './options-list';
@@ -6,7 +7,7 @@ import VotingChart from './voting-chart';
 import AddOption from './add-option';
 import SocialBar from './social-bar';
 
-import { Paper } from 'material-ui';
+import { FB_APPID } from '../../config';
 
 export default class PollPage extends Component {
   render() {
@@ -38,7 +39,7 @@ export default class PollPage extends Component {
           </div>
           <div style={{ flex: 1, height: '100%' }}>
             <VotingChart options={options} />
-            <SocialBar poll={poll} />
+            <SocialBar poll={poll} fbAppId={FB_APPID} />
           </div>
         </div>
 
