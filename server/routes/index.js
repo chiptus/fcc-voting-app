@@ -10,7 +10,7 @@ const {
 } = require('../auth');
 const { saveUser } = require('../controllers/userController');
 
-module.exports = function(app, passport) {
+module.exports = function(app) {
   app.use('/', express.static(path.join(__dirname, '../../client-web/build/')));
 
   // route to test if the user is logged in or not
