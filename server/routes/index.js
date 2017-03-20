@@ -1,4 +1,7 @@
 'use strict';
+
+const express = require('express');
+const path = require('path');
 const pollsRoutes = require('./polls');
 const {
   validateWithFacebook,
@@ -7,9 +10,9 @@ const {
 } = require('../auth');
 const { saveUser } = require('../controllers/userController');
 
-var path = process.cwd();
-
 module.exports = function(app, passport) {
+  app.use('/', express.static(path.join(__dirname, '../../client-web/build/')));
+
   // route to test if the user is logged in or not
   app.get('/loggedin', isReqLoggedIn, function(req, res) {
     res.json({ loggedIn: !!req.profile });
