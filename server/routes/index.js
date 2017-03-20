@@ -12,7 +12,7 @@ var path = process.cwd();
 module.exports = function(app, passport) {
   // route to test if the user is logged in or not
   app.get('/loggedin', isReqLoggedIn, function(req, res) {
-    res.json({ loggedIn: !!(req.profile || '0') });
+    res.json({ loggedIn: !!req.profile });
   });
 
   app.post('/auth/facebook', ({ body: { socialToken } }, res, next) => {
