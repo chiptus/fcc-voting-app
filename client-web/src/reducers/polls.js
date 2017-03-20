@@ -6,7 +6,7 @@ const defaultState = {
   items: [],
   lastUpdated: 0,
   isFetching: false,
-}
+};
 
 export default combineReducers({
   items: pollsItemsReducer,
@@ -14,22 +14,31 @@ export default combineReducers({
   isFetching: isFetchingReducer,
 });
 
-function isFetchingReducer(state = defaultState.isFetching, { type, payload, error, meta }) {
+function isFetchingReducer(
+  state = defaultState.isFetching,
+  { type, payload, error, meta }
+) {
   switch (type) {
     case ACTIONS.ADD_POLL:
     case ACTIONS.RECEIVED_POLLS:
     case ACTIONS.REQUEST_VOTE:
     case ACTIONS.RESPONSE_VOTE:
       return false;
+
+    case ACTIONS.DELETE_POLL:
     case ACTIONS.CREATE_POLL_REQUEST:
     case ACTIONS.REQUEST_POLLS:
       return true;
+
     default:
       return state;
   }
 }
 
-function lastUpdatedReducer(state = defaultState.lastUpdated, { type, payload, error, meta }) {
+function lastUpdatedReducer(
+  state = defaultState.lastUpdated,
+  { type, payload, error, meta }
+) {
   switch (type) {
     case ACTIONS.ADD_POLL:
       return payload.time;
@@ -45,19 +54,24 @@ function lastUpdatedReducer(state = defaultState.lastUpdated, { type, payload, e
   }
 }
 
-function pollsItemsReducer(state = defaultState.items, { type, payload, error, meta }) {
+function pollsItemsReducer(
+  polls = defaultState.items,
+  { type, payload, error, meta }
+) {
   switch (type) {
     case ACTIONS.ADD_POLL:
-      return [payload.poll._id, ...state];
+      return [payload.poll._id, ...polls];
     case ACTIONS.RECEIVED_POLLS:
       return payload.items.map(p => p._id);
 
+    case ACTIONS.DELETE_POLL_SUCCESS:
+      return polls.filter(pollId => pollId !== payload.pollId);
+
     case ACTIONS.CREATE_POLL_REQUEST:
     case ACTIONS.REQUEST_POLLS:
     case ACTIONS.REQUEST_VOTE:
     case ACTIONS.RESPONSE_VOTE:
     default:
-      return state;
+      return polls;
   }
 }
-

@@ -46,3 +46,45 @@ function createPollFailed(error) {
     error: true,
   };
 }
+
+export function deletePoll(pollId) {
+  // return (dispatch, getState) => {
+  // const userId = getState().auth.userId,
+  return {
+    type: ACTIONS.DELETE_POLL,
+    payload: {
+      request: {
+        url: `${SERVER_URL}/api/poll/${pollId}`,
+        method: 'delete',
+      },
+      options: {
+        onSuccess: ({ dispatch, response: { data: { userId } } }) =>
+          dispatch(deletePollSuccess(pollId, userId)),
+        onError: ({ dispatch, error }) =>
+          dispatch(deletePollFailed(error, pollId)),
+      },
+    },
+  };
+  // );
+  // };
+}
+
+export function deletePollSuccess(pollId, userId) {
+  return {
+    type: ACTIONS.DELETE_POLL_SUCCESS,
+    payload: {
+      pollId,
+      userId,
+    },
+  };
+}
+
+export function deletePollFailed(error, pollId) {
+  return {
+    type: ACTIONS.DELETE_POLL_FAIL,
+    payload: new Error(error),
+    meta: {
+      pollId,
+    },
+  };
+}

@@ -4,6 +4,10 @@ export const RECEIVED_POLLS = 'RECEIVED_POLLS';
 export const REQUEST_CREATE_POLL = 'CREATE_POLL_REQUEST';
 export const ADD_POLL = 'ADD_POLL';
 
+export const DELETE_POLL = 'DELETE_POLL';
+export const DELETE_POLL_SUCCESS = 'DELETE_POLL_SUCCESS';
+export const DELETE_POLL_FAIL = 'DELETE_POLL_FAIL';
+
 export const REQUEST_VOTE = 'REQUEST_VOTE';
 export const RESPONSE_VOTE = 'RESPONSE_VOTE';
 

@@ -42,9 +42,9 @@ module.exports = app => {
     );
   });
 
-  //get poll
   app
     .route('/api/poll/:id')
+    //get poll
     .get(({ params: { id } }, res) => {
       if (!id) {
         return res.json({ error: "id isn't supplied" });
@@ -54,9 +54,12 @@ module.exports = app => {
         reason => res.status(400).json({ error: reason })
       );
     })
+    //delete poll
     .delete(isLoggedIn, (req, res) => {
-      return PollCtrl.deletePoll(req.params.id).then(
-        () => res.json({ success: true }),
+      const pollId = req.params.id;
+      const userId = req.profile.dbId;
+      return PollCtrl.deletePoll(pollId, userId).then(
+        () => res.json({ success: true, pollId, userId }),
         reason => res.status(400).json({ error: reason })
       );
     });

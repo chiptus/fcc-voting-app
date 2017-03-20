@@ -57,8 +57,17 @@ function getListOfPollsForUser(userId) {
   return Poll.find({ created_by_user_id: userId }, { name: 1, _id: 1 }).exec();
 }
 
-function deletePoll(pollId) {
-  return Poll.remove({ _id: pollId }).exec();
+function deletePoll(pollId, userId) {
+  return User.findByIdAndUpdate(
+    { _id: userId },
+    {
+      $pop: {
+        polls: pollId,
+      },
+    }
+  ).then(() => {
+    return Poll.remove({ _id: pollId });
+  });
 }
 
 function addOption(pollId, optionName) {
