@@ -17,10 +17,11 @@ function unique(array) {
   return Array.from(new Set(array));
 }
 
-function createPoll(name, options = [], userId) {
+function createPoll(name, options = [], author, userId) {
   const poll = new Poll({
     name,
     options: unique(options).map(name => ({ name })),
+    author,
   });
   return poll.save().then(() =>
     User.findByIdAndUpdate(userId, {

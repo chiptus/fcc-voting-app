@@ -2,18 +2,23 @@ const PollCtrl = require('../controllers/poll.controller');
 const { isLoggedIn } = require('./utils');
 
 module.exports = app => {
+  //create poll
   app.post('/api/create-poll', isLoggedIn, ({ body, profile }, res) => {
     if (!body.name) {
       return res.json({ error: "name isn't supplied" });
     }
-    return PollCtrl.createPoll(body.name, body.options, profile.dbId).then(
+    return PollCtrl.createPoll(
+      body.name,
+      body.options,
+      body.author,
+      profile.dbId
+    ).then(
       document => res.json(document),
       reason => res.status(400).json({ error: reason })
     );
   });
 
   //get user polls
-
   app.get('/api/polls-for-user', isLoggedIn, ({ profile }, res) => {
     return PollCtrl.getListOfPollsForUser(profile.dbId).then(
       polls => res.json(polls),
