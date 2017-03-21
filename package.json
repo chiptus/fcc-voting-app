@@ -5,9 +5,19 @@
   "main": "index.js",
   "dependencies": {
     "axios": "^0.15.3",
+    "body-parser": "^1.16.1",
+    "concurrently": "^3.4.0",
+    "cors": "^2.8.1",
+    "dotenv": "^1.2.0",
+    "express": "^4.12.4",
+    "express-session": "^1.11.3",
     "font-awesome": "^4.7.0",
     "hellojs": "^1.14.0",
+    "jsonwebtoken": "^7.3.0",
     "material-ui": "^0.17.0",
+    "mongoose": "^4.1.0",
+    "passport": "^0.3.0",
+    "passport-github": "^1.0.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-google-charts": "^1.5.3",
@@ -19,22 +29,13 @@
     "redux-axios-middleware": "^3.1.2",
     "redux-localstorage-simple": "^1.2.0",
     "redux-thunk": "^2.2.0",
-    "superagent": "^3.4.4",
-    "body-parser": "^1.16.1",
-    "cors": "^2.8.1",
-    "dotenv": "^1.2.0",
-    "express": "^4.12.4",
-    "express-session": "^1.11.3",
-    "jsonwebtoken": "^7.3.0",
-    "mongoose": "^4.1.0",
-    "passport": "^0.3.0",
-    "passport-github": "^1.0.0",
-    "request": "^2.80.0"
+    "request": "^2.80.0",
+    "superagent": "^3.4.4"
   },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "cd server && npm start"
+    "start": "concurrently 'cd server && npm start' 'cd client-web && yarn build'"
   },
   "engines": {
     "npm": "4.1.2",
