@@ -9,7 +9,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 var app = express();
-require('dotenv').load();
+require('dotenv').config({ silent: true });
 // require('./config/passport')(passport);
 
 mongoose.connect(process.env.MONGO_URI);
