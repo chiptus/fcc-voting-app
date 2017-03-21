@@ -55,7 +55,7 @@ module.exports = function(app) {
   // Always return the main index.html, so react-router render the route in the client
   app.get('*', (req, res) => {
     res.sendFile(
-      path.resolve(__dirname, '..', 'client-web', 'build', 'index.html')
+      path.resolve(__dirname, '..', '..', 'client-web', 'build', 'index.html')
     );
   });
 };
