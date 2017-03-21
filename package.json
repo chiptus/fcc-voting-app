@@ -30,7 +30,8 @@
     "redux-localstorage-simple": "^1.2.0",
     "redux-thunk": "^2.2.0",
     "request": "^2.80.0",
-    "superagent": "^3.4.4"
+    "superagent": "^3.4.4",
+    "react-scripts": "0.9.5"
   },
   "devDependencies": {},
   "scripts": {
