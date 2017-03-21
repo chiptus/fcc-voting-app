@@ -62,7 +62,6 @@ export function checkLogin() {
   return (dispatch, getState) => {
     const { token } = getState().auth;
     if (!token) {
-      console.info('not logged in');
       return;
     }
     return dispatch({

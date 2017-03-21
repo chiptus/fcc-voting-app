@@ -55,7 +55,6 @@ class VotingChart extends Component {
   }
 
   componentWillUnmount() {
-    console.log('dis');
     window.onresize = null;
   }
 

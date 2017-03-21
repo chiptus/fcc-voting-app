@@ -8,8 +8,6 @@ module.exports = {
 };
 
 function isReqLoggedIn(req, res, next) {
-  // console.warn("auth is not implemented");
-  // return next();
   let profile;
   try {
     profile = req.query.jwt && verifyJwt(req.query.jwt);
