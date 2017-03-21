@@ -45,19 +45,19 @@ class App extends Component {
                 />
                 <PrivateRoute
                   path="/new-poll"
-                  render={match => (
-                    <NewPollPage goToList={() => match.push('/')} />
+                  render={({ history }) => (
+                    <NewPollPage goToList={() => history.push('/')} />
                   )}
                 />
                 <Route
                   path="/poll/:id"
-                  render={({ match: { params: { id } }, push }) => (
-                    <PollPage {...{ id, push }} />
-                  )}
+                  render={(
+                    { match: { params: { id } }, history: { push } }
+                  ) => <PollPage {...{ id, push }} />}
                 />
                 <Route
                   path="/"
-                  render={({ push }) => (
+                  render={({ history: { push } }) => (
                     <HomePage openPoll={createOpenPollFunction(push)} />
                   )}
                 />
