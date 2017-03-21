@@ -24,13 +24,12 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn, login, logout } = this.props;
     return (
       <BrowserRouter>
         <MuiThemeProvider muiTheme={theme}>
 
           <div className="container vbox viewport">
-            <Header {...{ isLoggedIn, login, logout }} />
+            <Header {...this.props} />
             <div className="content">
               <Routes />
             </div>
@@ -45,6 +44,7 @@ class App extends Component {
 
 const mapStateToProps = (state, ownProps) => ({
   isLoggedIn: !!state.auth.token,
+  username: state.entities.users[state.auth.userId].name,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
