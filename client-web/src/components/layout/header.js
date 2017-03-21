@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import { AppBar, FlatButton, Chip } from 'material-ui';
+import { AppBar, FlatButton } from 'material-ui';
 import { NavLink } from 'react-router-dom';
 
 const SignedIn = ({ logout, username }) => (
