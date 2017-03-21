@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch /*NavLink */ } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -55,6 +55,7 @@ class App extends Component {
                     { match: { params: { id } }, history: { push } }
                   ) => <PollPage {...{ id, push }} />}
                 />
+                <Route render={() => <Redirect to="/" />} />
                 <Route
                   path="/"
                   render={({ history: { push } }) => (
