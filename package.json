@@ -32,7 +32,9 @@
     "request": "^2.80.0",
     "superagent": "^3.4.4"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "react-scripts": "0.9.5"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently 'cd server && npm start' 'cd client-web && yarn build'"
