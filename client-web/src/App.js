@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -8,15 +8,11 @@ import theme from './theme';
 
 import './App.css';
 
-import { PrivateRoute } from './auth/components';
 import { getPolls } from './actions/polls-list';
 import { checkLogin } from './actions/auth';
 import { login, authDiscardToken } from './actions/auth';
 import { Header, Footer } from './components/layout';
-
-// import LoginPage from './auth/login-page/login-page';
-
-import { HomePage, MyPollsPage, NewPollPage, PollPage } from './containers';
+import Routes from './components/routes';
 
 class App extends Component {
   componentWillMount() {
@@ -36,33 +32,7 @@ class App extends Component {
           <div className="container vbox viewport">
             <Header {...{ isLoggedIn, login, logout }} />
             <div className="content">
-              <Switch>
-                <PrivateRoute
-                  path="/my-polls"
-                  render={({ push }) => (
-                    <MyPollsPage openPoll={createOpenPollFunction(push)} />
-                  )}
-                />
-                <PrivateRoute
-                  path="/new-poll"
-                  render={({ history }) => (
-                    <NewPollPage goToList={() => history.push('/')} />
-                  )}
-                />
-                <Route
-                  path="/poll/:id"
-                  render={(
-                    { match: { params: { id } }, history: { push } }
-                  ) => <PollPage {...{ id, push }} />}
-                />
-                <Route render={() => <Redirect to="/" />} />
-                <Route
-                  path="/"
-                  render={({ history: { push } }) => (
-                    <HomePage openPoll={createOpenPollFunction(push)} />
-                  )}
-                />
-              </Switch>
+              <Routes />
             </div>
             <Footer />
           </div>
@@ -85,7 +55,3 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
-
-function createOpenPollFunction(push) {
-  return id => push(`/poll/${id}`);
-}
