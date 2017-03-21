@@ -36,7 +36,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "concurrently -k 'cd server && npm start' 'cd client-web && yarn build'"
+    "start": "concurrently 'cd server && npm start' 'cd client-web && yarn build'"
   },
   "engines": {
     "npm": "4.1.2",
