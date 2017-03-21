@@ -45,8 +45,8 @@ class App extends Component {
                 />
                 <PrivateRoute
                   path="/new-poll"
-                  render={({ push }) => (
-                    <NewPollPage goToList={() => push('/')} />
+                  render={match => (
+                    <NewPollPage goToList={() => match.push('/')} />
                   )}
                 />
                 <Route
