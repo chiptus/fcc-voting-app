@@ -9,8 +9,7 @@ import theme from './theme';
 import './App.css';
 
 import { getPolls } from './actions/polls-list';
-import { checkLogin } from './actions/auth';
-import { login, authDiscardToken } from './actions/auth';
+import { checkLogin, login, authDiscardToken } from './actions/auth';
 import { Header, Footer } from './components/layout';
 import Routes from './components/routes';
 
