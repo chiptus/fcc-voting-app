@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "concurrently": "^3.4.0"
+    "concurrently": "^5.0.2"
   },
   "devDependencies": {},
   "scripts": {
@@ -13,10 +13,7 @@
     "dev": "concurrently 'cd server && yarn run dev' 'cd client-web && yarn start'",
     "preinstall": "npm i concurrently && concurrently 'cd server && yarn' 'cd client-web && yarn'"
   },
-  "engines": {
-    "npm": "4.1.2",
-    "node": "7.5.0"
-  },
+  "engines": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/chiptus/fcc-voting-app.git"
