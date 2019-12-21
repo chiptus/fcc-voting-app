@@ -11,7 +11,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently 'cd server && npm start' 'cd client-web && yarn build'",
     "dev": "concurrently 'cd server && yarn run dev' 'cd client-web && yarn start'",
-    "preinstall": "npm i concurrently && concurrently 'cd server && yarn' 'cd client-web && yarn'"
+    "postinstall": "concurrently 'cd server && yarn' 'cd client-web && yarn'"
   },
   "engines": {},
   "repository": {
